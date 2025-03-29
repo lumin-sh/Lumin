@@ -15,6 +15,7 @@
  limitations under the License.
  */
 
-int main() {
+int main( const int argc, char *argv[] ) {
+
     return 0;
 }

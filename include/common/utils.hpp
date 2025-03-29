@@ -15,6 +15,9 @@
  limitations under the License.
  */
 
-int main( int argc, char** argv ) {
-    return 0;
-}
+#ifndef LUMIN_UTILS_HPP
+#define LUMIN_UTILS_HPP
+
+#include <utils/getopt.hpp>
+
+#endif //LUMIN_UTILS_HPP

@@ -15,6 +15,24 @@
  limitations under the License.
  */
 
-int main( int argc, char** argv ) {
-    return 0;
+#ifndef LUMIN_GETOPT_HPP
+#define LUMIN_GETOPT_HPP
+
+#include <string_view>
+
+constexpr char EMSG[] = "";
+constexpr int BADCH = '?';
+constexpr int BADARG = ':';
+inline int optind = 1;
+inline int optopt = 0;
+inline int opterr = 1;
+inline int optreset = 0;
+inline const char* optarg = nullptr;
+
+namespace lumin::utils {
+
+int getopt( const int nargc, char* const nargv[], std::string_view ostr );
+
 }
+
+#endif //LUMIN_GETOPT_HPP
