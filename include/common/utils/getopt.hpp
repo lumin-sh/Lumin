@@ -18,19 +18,30 @@
 #ifndef LUMIN_GETOPT_HPP
 #define LUMIN_GETOPT_HPP
 
-#include <string_view>
+
+#include <string>
+#include <vector>
 
 constexpr char EMSG[] = "";
 constexpr int BADCH = '?';
 constexpr int BADARG = ':';
+
 inline int optind = 1;
 inline int optopt = 0;
 inline int opterr = 1;
 inline int optreset = 0;
 inline const char* optarg = nullptr;
+inline std::string current_option = "";
 
 namespace lumin::utils {
 
+struct Option {
+    std::string name;
+    bool requires_arg;
+    bool is_long;
+};
+
+std::vector<Option> parse_option_string( std::string_view ostr );
 int getopt( const int nargc, char* const nargv[], std::string_view ostr );
 
 }

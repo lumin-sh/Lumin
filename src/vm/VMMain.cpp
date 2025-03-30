@@ -15,7 +15,14 @@
  limitations under the License.
  */
 
-int main( const int argc, char *argv[] ) {
+#include "Logging.hpp"
+#include <sstream>
+#include "Utils.hpp"
 
+int main( int argc, char *argv[] ) {
+    std::stringstream ss;
+    ss << "Lumin " << LUMIN_MAJOR_VERSION << "(" << LUMIN_BUILD_VERSION << " : " << LUMIN_BUILD_DATE << ")";
+
+    LOG_INFO("luminc", ss.str())
     return 0;
 }
