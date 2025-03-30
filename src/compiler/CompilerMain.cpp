@@ -34,7 +34,7 @@ int main( const int argc, char** argv ) {
      n/nowarn - disable warnings
      f/feature - enable feature
      */
-    constexpr auto options = "o:|output|:d|disable|h|help|V|verbose|v|version|g|debug|w:|warning|:n:|nowarn|:f|feature|";
+    constexpr auto options = "o:|output|:d|disable|h|help|V|verbose|v|version|g|debug|w:|warning|:n:|nowarn|:f|feature|:";
     while ( (opt = lumin::utils::getopt( argc, argv, options ) ) != -1 ) {
         switch (opt) {
             case 'v':
