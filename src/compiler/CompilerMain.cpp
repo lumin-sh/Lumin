@@ -34,25 +34,25 @@ int main( const int argc, char** argv ) {
      n/nowarn - disable warnings
      f/feature - enable feature
      */
-    constexpr auto options = "o:|output|:d|disable|h|help|V|verbose|v|version|g|debug|w:|warning|:n:|nowarn|:f|feature|:";
+    constexpr auto options = "o:|output|:d:|disable:|h|help|V|verbose|v|version|g|debug|w:|warning|:n:|nowarn|:f:|feature|:";
     while ( (opt = lumin::utils::getopt( argc, argv, options ) ) != -1 ) {
-        switch (opt) {
+        switch ( opt ) {
             case 'v':
-                if (current_option == "version" || current_option == "v") {
-                    LOG_INFO("Lumin Compiler Information:")
-                    LOG_INFO("  Target Lumin Version: " + std::to_string(LUMIN_MAJOR_VERSION)
-                         + " (Build " + LUMIN_BUILD_VERSION + ")")
-                    LOG_INFO("  Platform: "
-                        + std::string(LUMIN_ARCH) + "-"
-                        + std::string(LUMIN_BUILD_PLATFORM) + "-"
-                        + std::string(LUMIN_BUILD_COMPILER)
+                if ( current_option == "version" || current_option == "v" ) {
+                    LOG_INFO( "Lumin Compiler Information:" )
+                    LOG_INFO( "  Target Lumin Version: " + std::to_string( LUMIN_VERSION_MAJOR ) +
+                         "." + std::to_string ( LUMIN_VERSION_MINOR ) +  "(Patch " + std::to_string ( LUMIN_VERSION_PATCH ) + ")" );
+                    LOG_INFO( "  Platform: "
+                        + std::string( LUMIN_ARCH ) + "-"
+                        + std::string( LUMIN_BUILD_PLATFORM ) + "-"
+                        + std::string( LUMIN_BUILD_COMPILER )
                         )
-                    LOG_INFO("  Build Date: " + std::string(LUMIN_BUILD_DATE))
+                    LOG_INFO( "  Build Date: " + std::string( LUMIN_BUILD_DATE ) )
                     return 0;
                 }
                 break;
             case 'o':
-                LOG_INFO("Output file: " + std::string(optarg))
+                LOG_INFO( "Output file: " + std::string( optarg ) )
                 break;
             case 'd':
                 LOG_INFO("Feature disabled")

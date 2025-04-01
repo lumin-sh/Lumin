@@ -18,32 +18,6 @@
 #ifndef LUMIN_UTILS_HPP
 #define LUMIN_UTILS_HPP
 
-#ifdef __x86_64__
-#define LUMIN_ARCH "x86_64"
-#elifdef __aarch64__
-#define LUMIN_ARCH "aarch64"
-#endif
-
-#define LUMIN_MAJOR_VERSION 25
-
-#define LUMIN_BUILD_VERSION "25.0.1"
-
-constexpr char LUMIN_BUILD_DATE[11] = {
-    '2', '0', __DATE__[9], __DATE__[10], '-',
-    (__DATE__[0] == 'O' || __DATE__[0] == 'N' || __DATE__[0] == 'D') ? '1' : '0',
-    (__DATE__[0] == 'J') ? ( (__DATE__[1] == 'a') ? '1' :
-                             ((__DATE__[2] == 'n') ? '6' : '7') ) :
-    (__DATE__[0] == 'F') ? '2' :
-    (__DATE__[0] == 'M') ? (__DATE__[2] == 'r') ? '3' : '5' :
-    (__DATE__[0] == 'A') ? (__DATE__[1] == 'p') ? '4' : '8' :
-    (__DATE__[0] == 'S') ? '9' :
-    (__DATE__[0] == 'O') ? '0' :
-    (__DATE__[0] == 'N') ? '1' :
-    (__DATE__[0] == 'D') ? '2' :
-    0, '-',
-    __DATE__[4] == ' ' ? '0' : __DATE__[4], __DATE__[5], '\0'
-};
-
 #if defined(_WIN32)
 #define LUMIN_BUILD_PLATFORM "Windows"
 #elif defined(__APPLE__)
@@ -64,7 +38,30 @@ constexpr char LUMIN_BUILD_DATE[11] = {
 #define LUMIN_BUILD_COMPILER "Unknown"
 #endif
 
+#ifdef __x86_64__
+#define LUMIN_ARCH "x86_64"
+#elifdef __aarch64__
+#define LUMIN_ARCH "aarch64"
+#endif
+
+constexpr char LUMIN_BUILD_DATE[11] = {
+    '2', '0', __DATE__[9], __DATE__[10], '-',
+    (__DATE__[0] == 'O' || __DATE__[0] == 'N' || __DATE__[0] == 'D') ? '1' : '0',
+    (__DATE__[0] == 'J') ? ( (__DATE__[1] == 'a') ? '1' :
+                             ((__DATE__[2] == 'n') ? '6' : '7') ) :
+    (__DATE__[0] == 'F') ? '2' :
+    (__DATE__[0] == 'M') ? (__DATE__[2] == 'r') ? '3' : '5' :
+    (__DATE__[0] == 'A') ? (__DATE__[1] == 'p') ? '4' : '8' :
+    (__DATE__[0] == 'S') ? '9' :
+    (__DATE__[0] == 'O') ? '0' :
+    (__DATE__[0] == 'N') ? '1' :
+    (__DATE__[0] == 'D') ? '2' :
+    0, '-',
+    __DATE__[4] == ' ' ? '0' : __DATE__[4], __DATE__[5], '\0'
+};
+
 #include <Logging.hpp>
 #include <utils/getopt.hpp>
+#include <LuminFile.hpp>
 
 #endif //LUMIN_UTILS_HPP

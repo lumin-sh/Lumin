@@ -15,14 +15,51 @@
  limitations under the License.
  */
 
-#include "Logging.hpp"
-#include <sstream>
 #include "Utils.hpp"
 
-int main( int argc, char *argv[] ) {
-    std::stringstream ss;
-    ss << "Lumin " << LUMIN_MAJOR_VERSION << "(" << LUMIN_BUILD_VERSION << " : " << LUMIN_BUILD_DATE << ")";
+std::string loggerName() {
+    return "lumin";
+}
 
-    LOG_INFO("luminc", ss.str())
+int main( const int argc, char *argv[] ) {
+    int opt;
+    constexpr auto options = "f:|feature|:d:|disable:|h|help|V|verbose|v|version|g|debug|";
+
+    while ( (opt = lumin::utils::getopt( argc, argv, options ) ) != -1 ) {
+        switch ( opt ) {
+            case 'v':
+                if ( current_option == "version" || current_option == "v" ) {
+                    LOG_INFO( "Lumin Virtual Machine Information:" )
+                    LOG_INFO( "  Target Lumin Version: " + std::to_string( LUMIN_VERSION_MAJOR ) +
+                         "." + std::to_string ( LUMIN_VERSION_MINOR ) +  "(Patch " + std::to_string ( LUMIN_VERSION_PATCH ) + ")" );
+                    LOG_INFO( "  Platform: "
+                        + std::string( LUMIN_ARCH ) + "-"
+                        + std::string( LUMIN_BUILD_PLATFORM ) + "-"
+                        + std::string( LUMIN_BUILD_COMPILER )
+                        )
+                    LOG_INFO( "  Build Date: " + std::string( LUMIN_BUILD_DATE ) )
+                    return 0;
+                }
+            break;
+            case 'd':
+                LOG_INFO("Feature disabled")
+                break;
+            case 'h':
+                LOG_INFO("Help information displayed here")
+                break;
+            case 'V':
+                LOG_INFO("Verbose mode enabled")
+                break;
+            case 'g':
+                LOG_INFO("Debug mode enabled")
+                break;
+            case 'f':
+                LOG_INFO("Feature enabled")
+                break;
+            default:
+                break;
+        }
+    }
+
     return 0;
 }
