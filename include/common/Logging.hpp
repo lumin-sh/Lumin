@@ -28,7 +28,7 @@
 #define LEVEL_ERRORC "\u001b[38;5;196m"
 #define LEVEL_RESET "\u001b[0m"
 
-std::string loggerName();
+std::string GetLoggerName();
 
 inline void log(const std::string& level_color, const std::string& message) {
     std::cout << level_color << message << LEVEL_RESET << std::endl;

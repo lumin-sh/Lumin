@@ -108,7 +108,7 @@ struct LuminFile {
 namespace Lumin::Utils {
 
 bool WriteLuminFile(const std::string& outputPath, const LuminFile& luminFile);
-static LuminFile ReadLuminFile(const std::string& inputPath);
+LuminFile ReadLuminFile(const std::string& inputPath);
 
 }
 

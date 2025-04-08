@@ -17,7 +17,7 @@
 
 #include "Utils.hpp"
 
-std::string loggerName() {
+std::string GetLoggerName() {
     return "luminc";
 }
 

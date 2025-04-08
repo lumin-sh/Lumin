@@ -18,4 +18,10 @@
 #ifndef LUMIN_BYTECODEREADER_HPP
 #define LUMIN_BYTECODEREADER_HPP
 
+namespace Lumin::Bytecode {
+
+class BytecodeReader {};
+
+}
+
 #endif //LUMIN_BYTECODEREADER_HPP

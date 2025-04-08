@@ -29,7 +29,7 @@ std::vector<lumin::utils::Option> lumin::utils::parse_option_string( std::string
             if ( end == std::string_view::npos ) {
                 // unmatched delimiter
                 if ( opterr ) {
-                    LOG_WARN( loggerName(), "Option string format error: unmatched '|'" );
+                    LOG_WARN( GetLoggerName(), "Option string format error: unmatched '|'" );
                 }
                 break;
             }
@@ -142,7 +142,7 @@ int lumin::utils::getopt( const int nargc, char* const nargv[], const std::strin
 
         if ( !found ) {
             if ( opterr && ostr[0] != ':' ) {
-                LOG_WARN( loggerName(), std::format( "Illegal option - {}", current_opt ) )
+                LOG_WARN( GetLoggerName(), std::format( "Illegal option - {}", current_opt ) )
             }
             place = EMSG;
             ++optind;
@@ -168,7 +168,7 @@ int lumin::utils::getopt( const int nargc, char* const nargv[], const std::strin
                 }
 
                 if ( opterr ) {
-                    LOG_WARN( loggerName(), std::format( "Option requires an argument - {}", current_opt ) );
+                    LOG_WARN( GetLoggerName(), std::format( "Option requires an argument - {}", current_opt ) );
                 }
                 ++optind;
                 return BADCH;
@@ -199,7 +199,7 @@ int lumin::utils::getopt( const int nargc, char* const nargv[], const std::strin
 
         if ( !valid_option ) {
             if ( opterr && ostr[0] != ':' ) {
-                LOG_WARN( loggerName(), std::format( "Illegal option - {}", static_cast<char>( optopt ) ) );
+                LOG_WARN( GetLoggerName(), std::format( "Illegal option - {}", static_cast<char>( optopt ) ) );
             }
 
             if ( !place[1] ) {
@@ -234,7 +234,7 @@ int lumin::utils::getopt( const int nargc, char* const nargv[], const std::strin
                     return BADARG;
                 }
                 if ( opterr ) {
-                    LOG_WARN( loggerName(), std::format( "Option requires an argument - {}", static_cast<char>( optopt ) ) );
+                    LOG_WARN( GetLoggerName(), std::format( "Option requires an argument - {}", static_cast<char>( optopt ) ) );
                 }
                 return BADCH;
             } else {

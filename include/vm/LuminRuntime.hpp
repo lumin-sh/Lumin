@@ -15,7 +15,8 @@
  limitations under the License.
  */
 
-#ifndef LUMIN_OPCODE_HPP
-#define LUMIN_OPCODE_HPP
+#ifndef LUMINRUNTIME_HPP
+#define LUMINRUNTIME_HPP
 
-#endif //LUMIN_OPCODE_HPP
+
+#endif //LUMINRUNTIME_HPP

@@ -15,9 +15,12 @@
  limitations under the License.
  */
 
+#include <format>
+
+#include "LuminVirtualMachine.hpp"
 #include "Utils.hpp"
 
-std::string loggerName() {
+std::string GetLoggerName() {
     return "lumin";
 }
 
@@ -42,24 +45,46 @@ int main( const int argc, char *argv[] ) {
                 }
             break;
             case 'd':
-                LOG_INFO("Feature disabled")
+                LOG_INFO( "Feature disabled" )
                 break;
             case 'h':
-                LOG_INFO("Help information displayed here")
+                LOG_INFO( "Help information displayed here" )
                 break;
             case 'V':
-                LOG_INFO("Verbose mode enabled")
+                LOG_INFO( "Verbose mode enabled" )
                 break;
             case 'g':
-                LOG_INFO("Debug mode enabled")
+                LOG_INFO( "Debug mode enabled" )
                 break;
             case 'f':
-                LOG_INFO("Feature enabled")
+                LOG_INFO( "Feature enabled" )
                 break;
             default:
                 break;
         }
     }
+
+    // Pi -> 0xDB, 0x0F, 0x49, 0x40
+
+    const std::vector<Lumin::VM::byte> bytecode {
+        static_cast<Lumin::VM::byte>( OpCode::ICONST ), 0x0A, 0x00, 0x00, 0x00,
+        //static_cast<Lumin::VM::byte>( OpCode::ICONST ), 0x0A, 0x00, 0x00, 0x00,
+        static_cast<Lumin::VM::byte>( OpCode::I2F ),
+        static_cast<Lumin::VM::byte>( OpCode::FCONST ), 0xDB, 0x0F, 0x49, 0x40,
+        static_cast<Lumin::VM::byte>( OpCode::FADD ),
+        //static_cast<Lumin::VM::byte>( OpCode::INEG )
+    };
+
+    const auto VM = std::make_unique<Lumin::VM::LuminVirtualMachine>( bytecode );
+    VM->Step();
+    VM->Step();
+    VM->Step();
+    VM->Step();
+    //
+    VM->frames[0].local_variables.size();
+    LOG_DEBUG ( std::format( "Value on the top of the stack: {}", std::get<float>( VM->stack.top() ) ) )
+    //
+
 
     return 0;
 }

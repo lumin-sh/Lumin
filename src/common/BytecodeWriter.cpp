@@ -14,4 +14,70 @@
  limitations under the License.
  */
 
+#include <cstring>
+#include <BytecodeWriter.hpp>
 
+using namespace Lumin::Bytecode;
+
+void BytecodeWriter::emit( const uint64_t value ) {
+    bytecode.push_back( value & 0xFF );
+    bytecode.push_back( (value >> 8) & 0xFF );
+    bytecode.push_back( (value >> 16) & 0xFF );
+    bytecode.push_back( (value >> 24) & 0xFF );
+    bytecode.push_back( (value >> 32) & 0xFF );
+    bytecode.push_back( (value >> 40) & 0xFF );
+    bytecode.push_back( (value >> 48) & 0xFF );
+    bytecode.push_back( (value >> 56) & 0xFF );
+}
+
+
+void BytecodeWriter::emit( const int64_t value ) {
+    emit( static_cast<uint64_t>( value ) );
+}
+
+void BytecodeWriter::emit( const double value ) {
+    uint64_t bits;
+    std::memcpy(&bits, &value, sizeof(double));
+
+    emit( bits );
+}
+
+void BytecodeWriter::emit( const uint32_t value ) {
+    bytecode.push_back( value & 0xFF );          // Least significant byte
+    bytecode.push_back( (value >> 8) & 0xFF );   // Second byte
+    bytecode.push_back( (value >> 16) & 0xFF );  // Third byte
+    bytecode.push_back( (value >> 24) & 0xFF );  // Most significant byte
+}
+
+void BytecodeWriter::emit( const int32_t value ) {
+    emit( static_cast<uint32_t>( value ) );
+}
+
+void BytecodeWriter::emit( const float value ) {
+    uint32_t bits;
+    std::memcpy( &bits, &value, sizeof( float ) );
+
+    emit( bits );
+}
+
+
+void BytecodeWriter::emit( const int16_t value ) {
+    bytecode.push_back( value & 0xFF );
+    bytecode.push_back( (value >> 8) & 0xFF );
+}
+
+void BytecodeWriter::emit( const bool value ) {
+    emit( static_cast<int8_t>( value ) );
+}
+
+void BytecodeWriter::emit( const uint8_t value ) {
+    bytecode.push_back( value & 0xFF );
+}
+
+void BytecodeWriter::emit( const int8_t value ) {
+    emit( static_cast<uint8_t>( value ) );
+}
+
+void BytecodeWriter::emit( const OpCode opcode ) {
+    bytecode.push_back( static_cast<uint8_t>( opcode ) );
+}

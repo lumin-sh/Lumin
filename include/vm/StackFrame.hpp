@@ -15,33 +15,35 @@
  limitations under the License.
  */
 
-#ifndef LUMIN_BYTECODEWRITER_HPP
-#define LUMIN_BYTECODEWRITER_HPP
+#ifndef STACKFRAME_HPP
+#define STACKFRAME_HPP
 
 #include <vector>
-#include <Opcode.hpp>
+#include <variant>
+#include <cstdint>
 
-namespace Lumin::Bytecode {
+namespace Lumin::VM {
 
-class BytecodeWriter {
-public:
-    std::vector<uint8_t> bytecode;
+using NumericValue = std::variant<
+    std::monostate,  // null
+    bool,
+    char,
+    int32_t,
+    int64_t,
+    float,
+    double
+>;
 
-    void emit(OpCode opcode);
+struct StackFrame {
+    size_t return_address;
+    size_t base_pointer;
+    std::vector<NumericValue> local_variables;
 
-    void emit(uint64_t value);
-    void emit(int64_t value);
-    void emit(uint32_t value);
-    void emit(int32_t value);
-    void emit(int16_t value);
-    void emit(uint8_t value);
-    void emit(int8_t value);
-    void emit(float value);
-    void emit(double value);
-    void emit(bool value);
-
+    StackFrame( const size_t ret_addr, const size_t base_ptr, const size_t local_count )
+        : return_address( ret_addr ), base_pointer( base_ptr ),
+        local_variables( local_count ) {}
 };
 
 }
 
-#endif //LUMIN_BYTECODEWRITER_HPP
+#endif //STACKFRAME_HPP
