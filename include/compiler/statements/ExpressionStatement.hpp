@@ -15,33 +15,23 @@
  limitations under the License.
  */
 
-#ifndef LUMIN_BYTECODEWRITER_HPP
-#define LUMIN_BYTECODEWRITER_HPP
+#ifndef EXPRESSIONSTATEMENT_HPP
+#define EXPRESSIONSTATEMENT_HPP
 
-#include <vector>
-#include <Opcode.hpp>
+#include <memory>
+#include "Statement.hpp"
+#include "expressions/Expression.hpp"
 
-namespace Lumin::Bytecode {
-
-class BytecodeWriter {
+class ExpressionStatement : public Statement {
 public:
-    std::vector<uint8_t> bytecode;
+    std::unique_ptr<Expression> expression;
 
-    void Emit(OpCode opcode);
+    void accept( StatementVisitor<void> &visitor ) override  {
+        visitor.visit( *this );
+    }
 
-    void Emit(uint64_t value);
-    void Emit(int64_t value);
-    void Emit(uint32_t value);
-    void Emit(int32_t value);
-    void Emit(int16_t value);
-    void Emit(uint8_t value);
-    void Emit(int8_t value);
-    void Emit(float value);
-    void Emit(double value);
-    void Emit(bool value);
-
+    explicit ExpressionStatement( std::unique_ptr<Expression> expression )
+        : expression( std::move( expression ) ) {}
 };
 
-}
-
-#endif //LUMIN_BYTECODEWRITER_HPP
+#endif //EXPRESSIONSTATEMENT_HPP

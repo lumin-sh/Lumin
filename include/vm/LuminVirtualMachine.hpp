@@ -41,6 +41,8 @@ public:
     // TODO: remove
     bool freezeExecution = false;
     void Step();
+    void Run();
+    void Reset();
     //
     VMStack<NumericValue> stack;
     std::vector<NumericValue> locals;
@@ -52,8 +54,6 @@ private:
     size_t ip;
     size_t base_pointer;
 
-    void Run();
-    void Reset();
     void Init();
     void Process(OpCode opcode);
 

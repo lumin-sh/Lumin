@@ -63,7 +63,7 @@ void LuminVirtualMachine::Step() {
 
 void LuminVirtualMachine::Reset() {
     ip = 0;
-    stack.clear();
+    stack.Clear();
     frames.clear();
     base_pointer = 0;
 }
@@ -108,11 +108,11 @@ T LuminVirtualMachine::Read() {
 
 template < typename T >
 T LuminVirtualMachine::PopCheckedValue() {
-    if ( stack.empty() ) {
+    if ( stack.Empty() ) {
         throw std::runtime_error( "Stack underflow" );
     }
 
-    T value = stack.pop();
+    T value = stack.Pop();
 
     return value;
 }
@@ -138,32 +138,32 @@ void LuminVirtualMachine::HandleIMUL() {
     const auto a = PopCheckedValue<NumericValue>();
     const auto b = PopCheckedValue<NumericValue>();
 
-    stack.push( PerformNumericOperation( a, b, std::multiplies() ) );
+    stack.Push( PerformNumericOperation( a, b, std::multiplies() ) );
 }
 
 void LuminVirtualMachine::HandleICONST() {
-    stack.push( Read<int32_t>() );
+    stack.Push( Read<int32_t>() );
 }
 
 void LuminVirtualMachine::HandleIDIV() {
     const auto a = PopCheckedValue<NumericValue>();
     const auto b = PopCheckedValue<NumericValue>();
 
-    stack.push( PerformNumericOperation( a, b, std::divides() ) );
+    stack.Push( PerformNumericOperation( a, b, std::divides() ) );
 }
 
 void LuminVirtualMachine::HandleIADD() {
     const auto a = PopCheckedValue<NumericValue>();
     const auto b = PopCheckedValue<NumericValue>();
 
-    stack.push( PerformNumericOperation( a, b, std::plus() ) );
+    stack.Push( PerformNumericOperation( a, b, std::plus() ) );
 }
 
 void LuminVirtualMachine::HandleISUB() {
     const auto a = PopCheckedValue<NumericValue>();
     const auto b = PopCheckedValue<NumericValue>();
 
-    stack.push( PerformNumericOperation( a, b, std::minus() ) );
+    stack.Push( PerformNumericOperation( a, b, std::minus() ) );
 }
 
 void LuminVirtualMachine::HandleINEG() {
@@ -178,7 +178,7 @@ void LuminVirtualMachine::HandleINEG() {
         }
     };
 
-    stack.push( std::visit( negate, a ) );
+    stack.Push( std::visit( negate, a ) );
 }
 
 void LuminVirtualMachine::HandleISTORE() {
@@ -188,7 +188,7 @@ void LuminVirtualMachine::HandleISTORE() {
         throw std::runtime_error( "Local variable index out of bounds" );
     }
 
-    if ( stack.empty() ) {
+    if ( stack.Empty() ) {
         throw std::runtime_error( "Stack underflow" );
     }
 
@@ -202,21 +202,21 @@ void LuminVirtualMachine::HandleILOAD() {
         throw std::runtime_error( "Local variable index out of bounds" );
     }
 
-    stack.push( locals[index] );
+    stack.Push( locals[index] );
 }
 
 void LuminVirtualMachine::HandleI2F() {
     const auto integer = std::get<int32_t>( PopCheckedValue<NumericValue>() );
-    stack.push( NumericValue( static_cast<float>( integer ) ) );
+    stack.Push( NumericValue( static_cast<float>( integer ) ) );
 }
 
 void LuminVirtualMachine::HandleFCONST() {
-    stack.push( Read<float>() );
+    stack.Push( Read<float>() );
 }
 
 void LuminVirtualMachine::HandleFADD() {
     const auto a = PopCheckedValue<NumericValue>();
     const auto b = PopCheckedValue<NumericValue>();
 
-    stack.push( PerformNumericOperation( a, b, std::plus() ) );
+    stack.Push( PerformNumericOperation( a, b, std::plus() ) );
 }

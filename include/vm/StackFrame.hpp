@@ -19,20 +19,9 @@
 #define STACKFRAME_HPP
 
 #include <vector>
-#include <variant>
-#include <cstdint>
+#include <NumericValue.hpp>
 
 namespace Lumin::VM {
-
-using NumericValue = std::variant<
-    std::monostate,  // null
-    bool,
-    char,
-    int32_t,
-    int64_t,
-    float,
-    double
->;
 
 struct StackFrame {
     size_t return_address;

@@ -30,15 +30,15 @@
 
 std::string GetLoggerName();
 
-inline void log(const std::string& level_color, const std::string& message) {
+inline void Log(const std::string& level_color, const std::string& message) {
     std::cout << level_color << message << LEVEL_RESET << std::endl;
 }
 
-inline void log(const std::string& level_color, const std::string& name, const std::string& message) {
+inline void Log(const std::string& level_color, const std::string& name, const std::string& message) {
     std::cout << level_color << "[" << name << "] " << message << LEVEL_RESET << std::endl;
 }
 
-inline void log_debug(
+inline void Log_debug(
     const std::string& file,
     const int line,
     const std::string& message
@@ -51,11 +51,11 @@ inline void log_debug(
 #ifdef NDEBUG
 #define LOG_DEBUG(...)
 #else
-#define LOG_DEBUG(...) log_debug(__FILE__, __LINE__, __VA_ARGS__);
+#define LOG_DEBUG(...) Log_debug(__FILE__, __LINE__, __VA_ARGS__);
 #endif
-#define LOG_INFO(...) log(LEVEL_INFO, __VA_ARGS__);
-#define LOG_WARN(...) log(LEVEL_WARN, __VA_ARGS__);
-#define LOG_ERROR(...) log(LEVEL_ERRORC, __VA_ARGS__);
+#define LOG_INFO(...) Log(LEVEL_INFO, __VA_ARGS__);
+#define LOG_WARN(...) Log(LEVEL_WARN, __VA_ARGS__);
+#define LOG_ERROR(...) Log(LEVEL_ERRORC, __VA_ARGS__);
 
 #endif // LOGGING_HPP
 

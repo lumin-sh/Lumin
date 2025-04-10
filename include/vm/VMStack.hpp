@@ -27,11 +27,11 @@ class VMStack {
     std::vector<T> elements;
 
 public:
-    void push( const T& value ) {
+    void Push( const T& value ) {
         elements.push_back( value );
     }
 
-    T pop() {
+    T Pop() {
         if ( elements.empty() ) {
             throw std::runtime_error( "Stack underflow" );
         }
@@ -42,14 +42,14 @@ public:
         return value;
     }
 
-    T& top() {
+    T& Top() {
         if ( elements.empty() ) {
             throw std::runtime_error( "Stack underflow" );
         }
         return elements.back();
     }
 
-    const T& top() const {
+    const T& Top() const {
         if ( elements.empty() ) {
             throw std::runtime_error( "Stack underflow" );
         }
@@ -57,19 +57,19 @@ public:
         return elements.back();
     }
 
-    bool empty() const {
+    bool Empty() const {
         return elements.empty();
     }
 
-    size_t size() const {
+    size_t Size() const {
         return elements.size();
     }
 
-    void clear() {
+    void Clear() {
         elements.clear();
     }
 
-    void resize( size_t new_size ) {
+    void Resize( size_t new_size ) {
         elements.resize( new_size );
     }
 

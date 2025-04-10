@@ -15,6 +15,9 @@
  limitations under the License.
  */
 
+#include <typeinfo>
+#include <Lexer.hpp>
+#include <Parser.hpp>
 #include "Utils.hpp"
 
 std::string GetLoggerName() {
@@ -83,6 +86,30 @@ int main( const int argc, char** argv ) {
     for (int i = optind; i < argc; i++) {
         LOG_INFO("Non-option argument: " + std::string(argv[i]))
     }
+
+    std::stringstream ss;
+    ss << "private inline fun mul(a: int, b: int) {";
+    ss << "     return a * b;";
+    ss << "}";
+    ss << "";
+    ss << "fun main() {";
+    ss << "     var x = 10 + 10;";
+    ss << "     mul(10, 10);";
+    ss << "}";
+
+    Lexer lexer(ss.view());
+    std::cout << "Tokenizing" << std::endl;
+    Parser parser(lexer.Tokenize());
+    std::cout << "Parsing" << std::endl;
+    auto statements = parser.Parse();
+    std::cout << "Printing statements" << std::endl;
+    int i = 0;
+    for ( const auto& statement : statements ) {
+        std::cout << i << ": " << typeid(*statement).name() << "\n";
+        i++;
+    }
+
+
 
     return 0;
 }

@@ -15,33 +15,22 @@
  limitations under the License.
  */
 
-#ifndef LUMIN_BYTECODEWRITER_HPP
-#define LUMIN_BYTECODEWRITER_HPP
+#ifndef BLOCKSTATEMENT_HPP
+#define BLOCKSTATEMENT_HPP
 
+#include <memory>
 #include <vector>
-#include <Opcode.hpp>
+#include "Statement.hpp"
 
-namespace Lumin::Bytecode {
-
-class BytecodeWriter {
+class BlockStatement : public Statement {
 public:
-    std::vector<uint8_t> bytecode;
+    std::vector<std::unique_ptr<Statement>> statements;
 
-    void Emit(OpCode opcode);
+    void accept( StatementVisitor<void> &visitor ) override {
+        visitor.visit( *this );
+    }
 
-    void Emit(uint64_t value);
-    void Emit(int64_t value);
-    void Emit(uint32_t value);
-    void Emit(int32_t value);
-    void Emit(int16_t value);
-    void Emit(uint8_t value);
-    void Emit(int8_t value);
-    void Emit(float value);
-    void Emit(double value);
-    void Emit(bool value);
-
+    explicit BlockStatement( std::vector<std::unique_ptr<Statement>> stmts ): statements( std::move( stmts ) ) {}
 };
 
-}
-
-#endif //LUMIN_BYTECODEWRITER_HPP
+#endif //BLOCKSTATEMENT_HPP

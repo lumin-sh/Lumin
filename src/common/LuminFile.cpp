@@ -63,7 +63,7 @@ ConstantPoolEntry ConstantPoolEntry::Deserialize( std::ifstream& inFile ) {
     switch (entry.tag) {
         case ConstantPoolTag::CONSTANT_INTEGER: {
             int32_t value;
-            inFile.read( reinterpret_cast<char*>( value ), sizeof( value ) );
+            inFile.read( reinterpret_cast<char*>( &value ), sizeof( value ) );
             entry.data = value;
             break;
         }

@@ -15,33 +15,20 @@
  limitations under the License.
  */
 
-#ifndef LUMIN_BYTECODEWRITER_HPP
-#define LUMIN_BYTECODEWRITER_HPP
+#ifndef NUMERICVALUE_HPP
+#define NUMERICVALUE_HPP
 
-#include <vector>
-#include <Opcode.hpp>
+#include <variant>
+#include <cstdint>
 
-namespace Lumin::Bytecode {
+using NumericValue = std::variant<
+    std::monostate,  // null
+    bool,
+    char,
+    int32_t,
+    int64_t,
+    float,
+    double
+>;
 
-class BytecodeWriter {
-public:
-    std::vector<uint8_t> bytecode;
-
-    void Emit(OpCode opcode);
-
-    void Emit(uint64_t value);
-    void Emit(int64_t value);
-    void Emit(uint32_t value);
-    void Emit(int32_t value);
-    void Emit(int16_t value);
-    void Emit(uint8_t value);
-    void Emit(int8_t value);
-    void Emit(float value);
-    void Emit(double value);
-    void Emit(bool value);
-
-};
-
-}
-
-#endif //LUMIN_BYTECODEWRITER_HPP
+#endif //NUMERICVALUE_HPP

@@ -15,33 +15,14 @@
  limitations under the License.
  */
 
-#ifndef LUMIN_BYTECODEWRITER_HPP
-#define LUMIN_BYTECODEWRITER_HPP
+#ifndef ACCESSMODIFIER_HPP
+#define ACCESSMODIFIER_HPP
 
-#include <vector>
-#include <Opcode.hpp>
-
-namespace Lumin::Bytecode {
-
-class BytecodeWriter {
-public:
-    std::vector<uint8_t> bytecode;
-
-    void Emit(OpCode opcode);
-
-    void Emit(uint64_t value);
-    void Emit(int64_t value);
-    void Emit(uint32_t value);
-    void Emit(int32_t value);
-    void Emit(int16_t value);
-    void Emit(uint8_t value);
-    void Emit(int8_t value);
-    void Emit(float value);
-    void Emit(double value);
-    void Emit(bool value);
-
+enum class AccessModifier {
+    NONE,
+    PUBLIC,
+    PRIVATE,
+    INTERNAL
 };
 
-}
-
-#endif //LUMIN_BYTECODEWRITER_HPP
+#endif //ACCESSMODIFIER_HPP

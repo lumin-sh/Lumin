@@ -15,33 +15,21 @@
  limitations under the License.
  */
 
-#ifndef LUMIN_BYTECODEWRITER_HPP
-#define LUMIN_BYTECODEWRITER_HPP
+#ifndef GETVARIABLEEXPRESSION_HPP
+#define GETVARIABLEEXPRESSION_HPP
 
-#include <vector>
-#include <Opcode.hpp>
+#include <string>
+#include "Expression.hpp"
 
-namespace Lumin::Bytecode {
-
-class BytecodeWriter {
+class GetVariableExpression : public Expression {
 public:
-    std::vector<uint8_t> bytecode;
+    std::string name;
 
-    void Emit(OpCode opcode);
+    void accept( ExpressionVisitor<void> &visitor ) override {
+        visitor.visit( *this );
+    }
 
-    void Emit(uint64_t value);
-    void Emit(int64_t value);
-    void Emit(uint32_t value);
-    void Emit(int32_t value);
-    void Emit(int16_t value);
-    void Emit(uint8_t value);
-    void Emit(int8_t value);
-    void Emit(float value);
-    void Emit(double value);
-    void Emit(bool value);
-
+    explicit GetVariableExpression( std::string& name ) : name( std::move( name ) ) {}
 };
 
-}
-
-#endif //LUMIN_BYTECODEWRITER_HPP
+#endif //GETVARIABLEEXPRESSION_HPP

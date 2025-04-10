@@ -15,33 +15,25 @@
  limitations under the License.
  */
 
-#ifndef LUMIN_BYTECODEWRITER_HPP
-#define LUMIN_BYTECODEWRITER_HPP
+#ifndef CALLEXPRESSION_HPP
+#define CALLEXPRESSION_HPP
 
+#include <memory>
 #include <vector>
-#include <Opcode.hpp>
+#include <string>
+#include "Expression.hpp"
 
-namespace Lumin::Bytecode {
-
-class BytecodeWriter {
+class CallExpression : public Expression {
 public:
-    std::vector<uint8_t> bytecode;
+    std::string name;
+    std::vector<std::unique_ptr<Expression>> arguments;
 
-    void Emit(OpCode opcode);
+    void accept( ExpressionVisitor<void> &visitor ) override {
+        visitor.visit( *this );
+    }
 
-    void Emit(uint64_t value);
-    void Emit(int64_t value);
-    void Emit(uint32_t value);
-    void Emit(int32_t value);
-    void Emit(int16_t value);
-    void Emit(uint8_t value);
-    void Emit(int8_t value);
-    void Emit(float value);
-    void Emit(double value);
-    void Emit(bool value);
-
+    CallExpression( std::string& name, std::vector<std::unique_ptr<Expression>> arguments )
+        : name( std::move( name ) ), arguments( std::move( arguments ) ) {}
 };
 
-}
-
-#endif //LUMIN_BYTECODEWRITER_HPP
+#endif //CALLEXPRESSION_HPP
